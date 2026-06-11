@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>추가 4장. AI Studio 마크다운 생산과 Firebase 실시간 연동 프로토콜</title>
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --text-color: #c9d1d9;
+            --accent-color: #58a6ff;
+            --card-bg: #161b22;
+            --border-color: #30363d;
+            --green-color: #3fb950;
+            --warn-color: #f0883e;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .nav-back {
+            margin-bottom: 20px;
+        }
+        .nav-back a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+        header {
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 20px;
+            margin-bottom: 35px;
+        }
+        h1 {
+            font-size: 2rem;
+            color: #ffffff;
+            margin: 0 0 10px 0;
+            letter-spacing: -0.5px;
+        }
+        .chapter-number {
+            color: var(--accent-color);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 5px;
+        }
+        h2 {
+            font-size: 1.4rem;
+            color: #ffffff;
+            margin-top: 35px;
+            border-left: 4px solid var(--accent-color);
+            padding-left: 12px;
+        }
+        p {
+            color: #c9d1d9;
+        }
+        .vibe-check {
+            background-color: rgba(88, 166, 255, 0.1);
+            border: 1px solid rgba(88, 166, 255, 0.3);
+            border-radius: 6px;
+            padding: 15px 20px;
+            margin: 25px 0;
+        }
+        .vibe-check strong {
+            color: var(--accent-color);
+            display: block;
+            margin-bottom: 5px;
+        }
+        .step-list {
+            padding-left: 20px;
+        }
+        .step-list li {
+            margin-bottom: 12px;
+        }
+        .step-list strong {
+            color: #ffffff;
+        }
+        .code-box {
+            background-color: #000000;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 15px;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 0.9rem;
+            color: var(--green-color);
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+        footer {
+            margin-top: 60px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #8b949e;
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        footer a { color: var(--accent-color); text-decoration: none; }
+        .edit-btn {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 6px 12px;
+            border-radius: 4px;
+            color: #c9d1d9 !important;
+            transition: all 0.2s;
+        }
+        .edit-btn:hover {
+            background-color: var(--border-color);
+            color: #ffffff !important;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="nav-back">
+        <a href="./index.html">⬅️ 메인 목차로 돌아가기</a>
+    </div>
+
+    <header>
+        <span class="chapter-number">심화 과정 — 추가 4장</span>
+        <h1>AI Studio 마크다운 생산과 Firebase 실시간 연동 프로토콜</h1>
+    </header>
+
+    <section>
+        <h2>🧐 정적 페이지(마크다운)의 한계를 깨부수는 '징검다리 스크립트'</h2>
+        <p>
+            마크다운이나 HTML 같은 정적 문서 파일은 브라우저에 화면을 그려줄 뿐, 스스로 데이터를 저장하거나 불러오는 백엔드 능력이 없습니다. 하지만 우리는 번거롭고 무거운 전통 서버를 별도로 구축하는 노가다를 철저히 지양합니다.
+        </p>
+        <p>
+            정답은 간단합니다. AI Studio를 통해 미학적인 마크다운 화면을 생산하되, 그 문서 맨 밑바닥에 <strong>데이터를 안전하게 Firebase DB 금고로 토스해 주는 미니 징검다리 코드(JavaScript)</strong>를 심어두는 것입니다. 화면은 가볍게 유지하고, 영구적인 기억은 서버리스로 완벽하게 달성하는 공식입니다.
+        </p>
+    </section>
+
+    <section>
+        <h2>🛠️ 실전 프로토콜: AI Studio 활용 사출 및 연동 프로세스</h2>
+        <p>내 하드디스크에 파일 한 장 남기지 않고 클라우드 가상 파이프라인에서 앱을 조율하는 순서입니다.</p>
+        
+        <ol class="step-list">
+            <li><strong>AI Studio 프롬프트 주문서 작성:</strong> <a href="https://google.com" target="_blank" style="color:var(--accent-color);">[Google AI Studio]</a>에 접속하여 다음과 같이 구조적 명렁을 내립니다.
+                <div class="code-box">
+                    "우리 매뉴얼 전용 Family Look 디자인을 입힌 마크다운 기반 화면을 짜줘. 그리고 문서 맨 아래에는 사용자의 의견을 받을 수 있는 텍스트 입력 칸과 [전송] 버튼을 만들고, 이 버튼을 누르면 내 Firebase Realtime Database 주소로 입력값이 실시간 누적 저장되도록 징검다리 스크립트 코드를 완벽히 삽입해줘."
+                </div>
+            </li>
+            <li><strong>결과물 1초 만에 복사:</strong> AI Studio가 화면 뒤에서 복잡한 연동 코드를 가공해 뿜어내면, 우측 상단의 **[Copy]** 버튼을 클릭합니다.</li>
+            <li><strong>GitHub 저장소 실시간 투척:</strong> 분할 창의 오른쪽 화면(GitHub 저장소)으로 워프하여 <strong>[Add file] ➡️ [Create new file]</strong>을 누르고 <code>feedback.html</code>을 적은 뒤 붙여넣기(Ctrl+V)하고 커밋(저장)합니다.</li>
+        </ol>
+
+        <div class="vibe-check" style="background-color: rgba(63, 185, 80, 0.1); border-color: rgba(63, 185, 80, 0.3);">
+            <strong style="color: var(--green-color);">🎯 연쇄 폭발 배포 완성</strong>
+            깃허브 저장 버튼을 누르는 순간 Cloudflare Pages가 이 신호를 낚아채 전 세계 에지 서버에 <code>vibecoding.goguma.app/feedback.html</code> 주소로 웹을 즉시 개설합니다. 사용자가 이 창에서 의견을 치면 백엔드 서버 없이도 내 Firebase 실시간 금고에 정확히 데이터가 꽂힙니다.
+        </div>
+    </section>
+
+    <section>
+        <h2>🌱 에코 코딩 & Net to Dot 최종 가치 증명</h2>
+        <p>
+            우리는 24시간 돌아가는 무거운 웹 호스팅 서버나 백엔드 프로그램을 구동하기 위한 대기 전력을 완벽히 제로화했습니다. 화면은 전력 소모가 거의 없는 고대비 정적 텍스트 기반으로 가동되며, 데이터가 전송될 때는 사용자가 버튼을 누르는 **찰나의 순간(Dot)**에만 미니 스크립트가 반짝 작동하고 완전히 증발합니다. 
+        </p>
+        <p>
+            불필요한 트래킹 그물(Net)을 완전히 제거하고, 필요한 가치적 데이터 점(Dot)만 깨끗하게 Firebase 금고에 쌓아가는 가장 지속 가능하고 우아한 차세대 에코 아키텍처의 표본입니다.
+        </p>
+    </section>
+
+    <footer>
+        <span>Powered by <a href="https://goguma.app" target="_blank">goguma.app</a></span>
+        <a href="https://github.com" target="_blank" class="edit-btn">📝 GitHub에서 이 문서 수정하기</a>
+    </footer>
+</div>
+
+</body>
+</html>
