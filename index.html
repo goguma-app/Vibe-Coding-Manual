@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>해 보면서 배우는 바이브 코딩 원초적 매뉴얼</title>
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --text-color: #c9d1d9;
+            --accent-color: #58a6ff;
+            --card-bg: #161b22;
+            --border-color: #30363d;
+            --green-color: #3fb950;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        header {
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 40px;
+            margin-bottom: 40px;
+        }
+        .badge {
+            background-color: rgba(88, 166, 255, 0.1);
+            color: var(--accent-color);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        h1 {
+            font-size: 2.2rem;
+            color: #ffffff;
+            margin: 0 0 15px 0;
+            letter-spacing: -0.5px;
+        }
+        .subtitle {
+            font-size: 1.1rem;
+            color: #8b949e;
+            margin: 0;
+        }
+        h2 {
+            font-size: 1.5rem;
+            color: #ffffff;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+            margin-top: 40px;
+        }
+        p {
+            color: #8b949e;
+        }
+        strong {
+            color: #ffffff;
+        }
+        .target-box {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        .target-box ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        .target-box li {
+            margin-bottom: 8px;
+            color: #c9d1d9;
+        }
+        .philosophy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+        .philosophy-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--accent-color);
+            border-radius: 0 6px 6px 0;
+            padding: 15px;
+        }
+        .philosophy-card.eco { border-left-color: var(--green-color); }
+        .philosophy-card h3 {
+            margin: 0 0 8px 0;
+            font-size: 1.1rem;
+            color: #ffffff;
+        }
+        .philosophy-card p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+        .toc-section {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 25px;
+        }
+        .toc-part {
+            margin-bottom: 25px;
+        }
+        .toc-part:last-child { margin-bottom: 0; }
+        .toc-part h4 {
+            margin: 0 0 10px 0;
+            color: var(--accent-color);
+            font-size: 1.1rem;
+        }
+        .toc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .toc-item {
+            display: flex;
+            align-items: baseline;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(48, 54, 61, 0.5);
+        }
+        .toc-item:last-child { border-bottom: none; }
+        .toc-item .status {
+            font-size: 0.75rem;
+            padding: 2px 6px;
+            border-radius: 3px;
+            margin-right: 10px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        .status.done { background-color: rgba(63, 185, 80, 0.15); color: var(--green-color); }
+        .status.ready { background-color: rgba(139, 148, 158, 0.15); color: #8b949e; }
+        .toc-item a {
+            color: #c9d1d9;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+        .toc-item a:hover {
+            color: var(--accent-color);
+        }
+        footer {
+            margin-top: 60px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #8b949e;
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+        }
+        footer a { color: var(--accent-color); text-decoration: none; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <span class="badge">Vibe Coding Official Docs</span>
+        <h1>해 보면서 배우는 바이브 코딩 원초적 매뉴얼</h1>
+        <p class="subtitle">AI 시대를 관통하는 도메인 지식주의자의 무결점 배포 로드맵</p>
+    </header>
+
+    <div class="target-box">
+        <strong>🎯 독자 대상</strong>
+        <p style="margin: 5px 0 15px 0; font-size: 0.9rem;">아래 조건 중 하나라도 해당한다면 당신은 타고난 바이브 코더입니다.</p>
+        <ul>
+            <li>컴퓨터 문법은 몰라도 흐름과 맥락을 파악하는 <strong>Computing Vibe</strong>가 있는 사람</li>
+            <li>정밀한 비즈니스 현장 실무와 본인만의 확고한 <strong>도메인 지식</strong>이 있는 사람</li>
+            <li>인프라 세션이 꼬이거나 불필요하게 <strong>번거로운 과정을 절대 못 참는</strong> 사람</li>
+            <li>남에게 맡기는 것보다 <strong>내 손으로 직접 지배하고 세팅</strong>하는 게 마음 편한 사람</li>
+            <li>그리하여 나의 모든 일과 삶이 물 흐르듯 연결되는 <strong>Seamless Life</strong>를 원하는 사람</li>
+        </ul>
+    </div>
+
+    <section>
+        <h2>🌟 머리말: 왜 우리는 바이브 코딩을 해야 하는가?</h2>
+        <p>
+            전통적인 코딩 교육은 우리에게 알파벳과 문법(Syntax)을 외우라고 강요했습니다. 하지만 AI가 코드를 대신 짜주는 지금, 우리에게 진짜 필요한 것은 <strong>코드를 통제하는 '감각'과 비즈니스의 '맥락'</strong>입니다. 본 매뉴얼은 복잡한 개발 이론을 완전히 걷어내고, 손으로 인프라를 만지며 즉시 나의 실무와 삶을 자동화하는 실전형 흐름을 다룹니다.
+        </p>
+    </section>
+
+    <section>
+        <h2>🌱 바이브 코딩 3대 핵심 원칙</h2>
+        <div class="philosophy-grid">
+            <div class="philosophy-card">
+                <h3>1. 최소 코드 지향</h3>
+                <p>자바스크립트 수백 줄 대신 명확한 AI 프롬프트와 클라우드 본연의 연동 기술로 기능을 구현합니다.</p>
+            </div>
+            <div class="philosophy-card eco">
+                <h3>2. 에코/그린 코딩</h3>
+                <p>24시간 서버를 켜두는 낭비 대신, 요청이 올 때만 0.1초 켜지는 서버리스 인프라로 탄소를 절감합니다.</p>
+            </div>
+            <div class="philosophy-card">
+                <h3>3. Net to Dot 원칙</h3>
+                <p>거대한 개인정보 그물(Net)을 치지 않고, 필요한 핵심 데이터 점(Dot)만 찍고 사라지는 청정 설계를 지향합니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>🗂️ 매뉴얼 목차 대진표</h2>
+        <p style="font-size: 0.9rem; margin-bottom: 20px;">각 챕터가 완성되면 링크가 활성화됩니다. 린(Lean) 방식으로 하나씩 채워갑니다.</p>
+        
+        <div class="toc-section">
+            <div class="toc-part">
+                <h4>🏗️ 1부: 인프라 기초 체력 — 공간 분리와 터 닦기</h4>
+                <ul class="toc-list">
+                    <li class="toc-item">
+                        <span class="status done">최신본</span>
+                        <a href="./chapter1.html">1장. 크롬 프로필 격리: 로그인 미로 탈출하기</a>
+                    </li>
+                    <li class="toc-item">
+                        <span class="status ready">준비중</span>
+                        <a href="./chapter2.html">2장. 파이어베이스(Firebase) 선제 타격과 DB 자동 매칭</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="toc-part">
+                <h4>🚀 2부: AI Studio 실전 — 최소 코드로 앱 출격시키기</h4>
+                <ul class="toc-list">
+                    <li class="toc-item">
+                        <span class="status ready">준비중</span>
+                        <a href="./chapter3.html">3장. 프롬프팅이 곧 백엔드다: 최소 코드(Minimal Code) 선언</a>
+                    </li>
+                    <li class="toc-item">
+                        <span class="status ready">준비중</span>
+                        <a href="./chapter4.html">4장. 원클릭 배포(Publisher)의 함정과 IAM 권한 파괴 규칙</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="toc-part">
+                <h4>🌐 3부: 도메인 매핑 & 보안 — 방패 세우고 내 주소 달기</h4>
+                <ul class="toc-list">
+                    <li class="toc-item">
+                        <span class="status ready">준비중</span>
+                        <a href="./chapter5.html">5장. 와이드 모니터의 미학: 분할 화면 복사/붙여넣기 기술</a>
+                    </li>
+                    <li class="toc-item">
+                        <span class="status ready">준비중</span>
+                        <a href="./chapter6.html">6장. 보안 경고(HSTS/525 Error) 학살과 구름 릴레이 전략</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="toc-part">
+                <h4>🌱 4부: 에코 코딩 & Net to Dot 실천 — 지속 가능한 라이프</h4>
+                <ul class="toc-list">
+                    <li class="toc-item">
+                        <span class="status ready">준비중</span>
+                        <a href="./chapter7.html">7장. 그린/에코 코딩: 켜놓지 않는 서버리스(Serverless)의 지혜</a>
+                    </li>
+                    <li class="toc-item">
+                        <span class="status ready">준비중</span>
+                        <a href="./chapter8.html">8장. Net to Dot 코딩: 개인정보를 수집하지 않는 우아함</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="toc-part">
+                <h4>🌐 5부: 글로벌 확장 — 내 매뉴얼 무료 배포하기</h4>
+                <ul class="toc-list">
+                    <li class="toc-item">
+                        <span class="status ready">준비중</span>
+                        <a href="./chapter9.html">9장. VS Code 플러그인으로 1초 만에 index.html 추출하기</a>
+                    </li>
+                    <li class="toc-item">
+                        <span class="status ready">준비중</span>
+                        <a href="./chapter10.html">10장. Cloudflare Pages 직접 드래그 앤 드롭 배포</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <footer>
