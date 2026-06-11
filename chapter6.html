@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>6장. 보안 경고 학살: HSTS 및 525 에러 완파와 구름 릴레이 전략 - 바이브 코딩 원초적 매뉴얼</title>
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #111111;
+            --accent-color: #ff5a00;
+            --muted-color: #666666;
+            --border-color: #eaeaea;
+            --code-bg: #f7f7f7;
+            --max-width: 720px;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #0b0b0b;
+                --text-color: #eeeeee;
+                --accent-color: #ff6b1a;
+                --muted-color: #a0a0a0;
+                --border-color: #222222;
+                --code-bg: #161616;
+            }
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: var(--max-width);
+        }
+
+        .nav-back {
+            display: inline-block;
+            color: var(--muted-color);
+            text-decoration: none;
+            font-size: 0.95rem;
+            margin-bottom: 30px;
+            transition: color 0.2s;
+        }
+
+        .nav-back:hover {
+            color: var(--accent-color);
+        }
+
+        header {
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+        }
+
+        .category {
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--accent-color);
+            margin: 0 0 8px 0;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            line-height: 1.3;
+            margin: 0;
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 40px 0 20px 0;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        h3 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin: 30px 0 15px 0;
+        }
+
+        p {
+            margin: 0 0 20px 0;
+            font-size: 1.05rem;
+        }
+
+        strong {
+            font-weight: 700;
+        }
+
+        ul, ol {
+            margin: 0 0 25px 0;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            font-size: 1.05rem;
+        }
+
+        .vibe-box {
+            background-color: var(--code-bg);
+            border-left: 3px solid var(--accent-color);
+            padding: 20px;
+            border-radius: 4px;
+            margin: 30px 0;
+        }
+
+        .vibe-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: var(--code-bg);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: var(--accent-color);
+        }
+
+        .relay-flow {
+            background-color: var(--code-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 20px;
+            margin: 30px 0;
+            font-family: monospace;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .cloud-gray { color: #888888; font-weight: bold; }
+        .cloud-orange { color: #ff5a00; font-weight: bold; }
+
+        footer {
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            color: var(--muted-color);
+            font-size: 0.95rem;
+        }
+
+        footer a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        footer a:hover {
+            color: var(--accent-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="nav-back">← 메인 목차로 돌아가기</a>
+        
+        <header>
+            <p class="category">3부: 도메인 매핑 & 보안 — 방패 세우고 내 주소 달기</p>
+            <h1>6장. 보안 경고 학살:<br>HSTS 및 525 에러 완파와 구름 릴레이 전략</h1>
+        </header>
+
+        <section>
+            <p>보안 방패인 Cloudflare와 구글 인프라 엔진(Cloud Run / Firebase)을 커스텀 도메인으로 엮을 때, 가장 악명 높은 통곡의 벽이 바로 <strong>'525 SSL Handshake Failed'</strong> 에러와 브라우저의 <strong>'HSTS 접근 차단 붉은 화면'</strong>입니다. 이 두 현상은 보안을 느슨하게 풀었다가 조이는 찰나의 통신 규약 불일치로 발생합니다.</p>
+            
+            <p>바이브 코딩은 원인을 알 수 없는 무한 새로고침이나 막연한 대기를 거부합니다. 보안 상태를 물리적으로 제어하고 완벽하게 통제하는 <strong>'구름 릴레이(Cloud Relay) 전략'</strong>으로 이 보안 장애물을 즉시 완파합니다.</p>
+
+            <h2>🚨 1. 525 에러와 HSTS 경고가 발생하는 진짜 이유</h2>
+            <p>대부분의 초보 개발자는 도메인을 연결하자마자 Cloudflare의 강력한 기능인 '주황색 구름(Proxied)'을 켜버립니다. 이 상태에서는 구글 엔프라 엔진이 도메인의 진짜 소유주를 검증하기 위한 <code>Let's Encrypt</code> SSL 인증서를 발급받지 못하는 병목 현상이 일어납니다.</p>
+            
+            <ul>
+                <li><strong>525 에러의 원인:</strong> Cloudflare 방패는 구글 엔진에게 안전한 암호화(SSL) 통신을 요구하지만, 구글 엔진은 아직 자체 인증서가 준비되지 않아 대답을 거부하는 현상입니다.</li>
+                <li><strong>HSTS 경고의 원인:</strong> 브라우저가 과거에 "이 도메인은 무조건 엄격한 보안(HTTPS)으로만 접속해야 해"라는 기억(캐시)을 가졌는데, 중간에 인증 세팅이 엉키면서 안전하지 않은 경로로 우회 감지되어 차단막을 치는 현상입니다.</li>
+            </ul>
+
+            <h2>☁️ 2. 돌파 매뉴얼: 구름 릴레이(Cloud Relay) 3단계 프로토콜</h2>
+            <p>이 문제를 해결하기 위해서는 Cloudflare의 DNS 프록시 제어 권한을 찰나의 순간 동안 열었다가 다시 닫는 정밀 제어가 필요합니다.</p>
+
+            <div class="relay-flow">
+                [1단계: 발급 유도] <span class="cloud-gray">회색 구름 (DNS Only)</span> ➡️ 구글 엔진이 도메인 소유권을 직통 확인하고 자체 SSL 발급 완료<br>
+                [2단계: 보안 격상] Cloudflare TLS 모드를 'Flexible'에서 <span style="color: var(--accent-color); font-weight: bold;">'Full (전체)'</span>로 승격<br>
+                [3단계: 방패 가동] <span class="cloud-orange">주황색 구름 (Proxied)</span>으로 전환 ➡️ 캐시 및 디도스 보안 방패 최종 활성화
+            </div>
+
+            <h3>정밀 수행 순서</h3>
+            <ol>
+                <li><strong>회색 구름 다운그레이드:</strong> Cloudflare DNS 메뉴에서 해당 레코드의 프록시 상태를 클릭하여 <span class="cloud-gray">회색 구름(DNS Only)</span>으로 변경하고 저장합니다.</li>
+                <li><strong>구글 인증서 발급 확인:</strong> 이 상태로 1~2분 대기하면, 구글 클라우드 콘솔의 도메인 매핑 상태가 '인증서 발급 중'에서 '완료/녹색 체크'로 바뀝니다.</li>
+                <li><strong>SSL 전체 모드 격상:</strong> Cloudflare 좌측 메뉴의 <strong>SSL/TLS</strong> ➡️ <strong>Overview</strong>로 이동하여 암호화 모드를 반드시 <code>Full</code> 또는 <code>Full (Strict)</code>로 체크합니다. (Flexible 모드로 두면 525 에러 또는 무한 리다이렉트 루프에 빠집니다)</li>
+                <li><strong>주황색 구름 컴백:</strong> 다시 DNS 메뉴로 돌아와 레코드를 <span class="cloud-orange">주황색 구름(Proxied)</span>으로 복구합니다. 방패가 완전히 복원되었습니다.</li>
+            </ol>
+
+            <h2>🧹 3. 지독한 HSTS 브라우저 캐시 학살하기</h2>
+            <p>인프라 세팅을 올바르게 고쳤음에도 크롬 브라우저가 계속 붉은색 경고 창을 띄우며 진입을 막는다면, 그것은 서버의 문제가 아니라 브라우저의 지독한 보안 캐시 때문입니다. 아래의 원초적 명령으로 브라우저의 뇌리를 완전히 포맷합니다.</p>
+            
+            <ol>
+                <li>크롬 브라우저 주소창에 <code>chrome://net-internals/#hsts</code>를 입력하고 엔터를 누릅니다.</li>
+                <li>가장 아래쪽에 있는 <strong>Delete domain security policies</strong> 입력 칸을 찾습니다.</li>
+                <li>내 도메인 주소인 <code>vibecoding.goguma.app</code>을 입력하고 **Delete** 버튼을 강제 주입합니다.</li>
+                <li>브라우저를 완전히 종료한 뒤 재접속하면, 묵은 경고가 완전히 학살되고 청정 웹 화면이 즉시 열립니다.</li>
+            </ol>
+
+            <div class="vibe-box">
+                <h3>💡 바이브 코딩 철학 노트 (Vibe Note)</h3>
+                <p>보안은 무조건 단단하게 잠그는 것이 능사가 아닙니다. 인프라와 인프라가 최초의 악수를 나누는 찰나의 순간(Handshake)에는 문을 열어 길을 터주고, 동기화가 끝난 즉시 방패를 올려 걸어 잠그는 유연한 흐름 제어, 그것이 바로 완벽한 시스템 구조를 완성하는 바이브 코딩의 눈빛입니다.</p>
+            </div>
+        </section>
+
+        <footer>
+            <a href="chapter5.html">← 5장. 와이드 모니터의 미학</a>
+            <a href="index.html">메인 목차로 돌아가기 ↑</a>
+        </footer>
+    </div>
+</body>
+</html>
