@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>9장. VS Code 플러그인으로 1초 만에 index.html 추출하기 - 바이브 코딩 원초적 매뉴얼</title>
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #111111;
+            --accent-color: #ff5a00;
+            --muted-color: #666666;
+            --border-color: #eaeaea;
+            --code-bg: #f7f7f7;
+            --max-width: 720px;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #0b0b0b;
+                --text-color: #eeeeee;
+                --accent-color: #ff6b1a;
+                --muted-color: #a0a0a0;
+                --border-color: #222222;
+                --code-bg: #161616;
+            }
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: var(--max-width);
+        }
+
+        .nav-back {
+            display: inline-block;
+            color: var(--muted-color);
+            text-decoration: none;
+            font-size: 0.95rem;
+            margin-bottom: 30px;
+            transition: color 0.2s;
+        }
+
+        .nav-back:hover {
+            color: var(--accent-color);
+        }
+
+        header {
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+        }
+
+        .category {
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--accent-color);
+            margin: 0 0 8px 0;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            line-height: 1.3;
+            margin: 0;
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 40px 0 20px 0;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        p {
+            margin: 0 0 20px 0;
+            font-size: 1.05rem;
+        }
+
+        strong {
+            font-weight: 700;
+        }
+
+        ul, ol {
+            margin: 0 0 25px 0;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            font-size: 1.05rem;
+        }
+
+        .vibe-box {
+            background-color: var(--code-bg);
+            border-left: 3px solid var(--accent-color);
+            padding: 20px;
+            border-radius: 4px;
+            margin: 30px 0;
+        }
+
+        .vibe-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: var(--code-bg);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: var(--accent-color);
+        }
+
+        .shortcut {
+            background-color: var(--code-bg);
+            border: 1px solid var(--border-color);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-weight: bold;
+        }
+
+        footer {
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            color: var(--muted-color);
+            font-size: 0.95rem;
+        }
+
+        footer a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        footer a:hover {
+            color: var(--accent-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="nav-back">← 메인 목차로 돌아가기</a>
+        
+        <header>
+            <p class="category">5부: 초고속 개발 자동화 — 단 1초도 낭비하지 않는 무기</p>
+            <h1>9장. VS Code 플러그인으로<br>1초 만에 index.html 추출하기</h1>
+        </header>
+
+        <section>
+            <p>바이브 코딩은 의미 없는 타이핑과 반복적인 마우스 드래그를 극도로 경멸합니다. 아무리 정교하고 우아한 철학을 지닌 인프라 대시보드(<code>index.html</code>)라 할지라도, 이를 매번 수동으로 긁어오거나 서식 파일을 찾아 헤맨다면 생산성의 병목이 발생합니다.</p>
+            
+            <p>우리가 사용하는 로컬 에디터인 **VS Code(Visual Studio Code)**의 내장 기능과 확장 생태계를 결합하면 복잡한 마크업 구조를 단 1초 만에 정밀하게 추출하고 제어할 수 있습니다. 마우스에 손을 대지 않고 키보드 단타로 코드를 뽑아내는 실전 프로토콜을 구현합니다.</p>
+
+            <h2>⚡ 1. Emmet 스니펫을 이용한 0.1초 본문 골격 생성</h2>
+            <p>VS Code에는 기본적으로 고속 마크업 플러그인인 **Emmet**이 내장되어 있습니다. 빈 문서 파일에서 불필요한 태그를 일일이 적을 필요가 전혀 없습니다.</p>
+            
+            <ul>
+                <li><strong>실전 가이드:</strong> 저장소에 빈 파일 `index.html`을 만들고 에디터에서 켠 뒤, 느낌표 <span class="shortcut">!</span>를 입력하고 <span class="shortcut">Tab</span> 키를 누릅니다.</li>
+                <li><strong>결과:</strong> 모바일 반응형 Meta 뷰포트와 기본 HTML5 규격 뼈대가 0.1초 만에 자동 생성됩니다. 바이브 코딩은 이 기본 뼈대 위에 고유의 고대비 스타일 시트(CSS)만 주입하여 속도를 극대화합니다.</li>
+            </ul>
+
+            <h2>🔌 2. 1초 만에 정적 요소를 복사하는 추천 플러그인 트리오</h2>
+            <p>라이브 주소(`vibecoding.goguma.app`)의 컴포넌트나 매뉴얼 목차를 빠르게 제어하고 로컬로 추출하기 위해 VS Code에 반드시 심어야 할 필수 플러그인 설정입니다.</p>
+            
+            <ol>
+                <li><strong>HTML Hint / HTML CSS Support:</strong> 코드 작성 중 오타를 실시간으로 감지하고, 기존 챕터(Chapter)에서 사용된 CSS 클래스 매너를 자동 완성하여 디자인 통일성을 유지합니다.</li>
+                <li><strong>Live Preview (by Microsoft):</strong> 브라우저를 별도로 켜서 확인하지 않고, VS Code 내부 분할 화면으로 `index.html`이 추출되는 모습을 실시간으로 관측합니다. 와이드 모니터 분할 스킬을 단일 프로그램 안에서 구현하는 방식입니다.</li>
+                <li><strong>Auto Rename Tag / Auto Close Tag:</strong> 태그를 하나만 수정해도 쌍을 이루는 닫는 태그가 1초 만에 자동 변경되어 휴먼 에러를 원천 봉쇄합니다.</li>
+            </ol>
+
+            <h2>⌨️ 3. 키보드로 끝내는 1초 추출 및 동기화 커맨드</h2>
+            <p>마우스 드래그로 코드를 선택하다가 줄이 밀리는 현상은 바이브 코딩에서 허용되지 않습니다. 오직 단축키 릴레이로 코드를 다룹니다.</p>
+            
+            <ul>
+                <li><strong>전체 선택 및 복사:</strong> <span class="shortcut">Ctrl + A</span> ➡️ <span class="shortcut">Ctrl + C</span> (맥은 <span class="shortcut">Cmd</span>) 조합으로 브라우저나 AI 대화창의 코드를 유실 없이 통째로 확보합니다.</li>
+                <li><strong>코드 포맷팅 즉시 강제:</strong> 코드를 붙여넣은 뒤 <span class="shortcut">Alt + Shift + F</span>를 누르면, 뒤틀려 있던 마크다운이나 HTML 들여쓰기가 1초 만에 테크 기업 표준 규격으로 일렬종대 정렬됩니다.</li>
+            </ul>
+
+            <div class="vibe-box">
+                <h3>💡 바이브 코딩 철학 노트 (Vibe Note)</h3>
+                <p>도구의 숙련도는 사유의 깊이를 방해하지 않는 수준까지 올라와야 합니다. 단축키와 플러그인을 몸의 일부처럼 다루며 1초 만에 뼈대를 추출하는 감각은, 코딩이라는 원초적 행위를 넘어 더 고차원적인 '시스템 구조 설계'와 '주체적 콘텐츠 기획'에 뇌의 온전한 에너지를 쏟을 수 있게 만드는 핵심 원동력입니다.</p>
+            </div>
+        </section>
+
+        <footer>
+            <a href="chapter8.html">← 8장. Net to Dot 코딩</a>
+            <a href="index.html">메인 목차로 돌아가기 ↑</a>
+        </footer>
+    </div>
+</body>
+</html>
