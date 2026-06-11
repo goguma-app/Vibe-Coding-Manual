@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2장. 파이어베이스 선제 타격과 DB 자동 매칭</title>
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --text-color: #c9d1d9;
+            --accent-color: #58a6ff;
+            --card-bg: #161b22;
+            --border-color: #30363d;
+            --green-color: #3fb950;
+            --warn-color: #f0883e;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .nav-back {
+            margin-bottom: 20px;
+        }
+        .nav-back a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+        header {
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 20px;
+            margin-bottom: 35px;
+        }
+        h1 {
+            font-size: 2rem;
+            color: #ffffff;
+            margin: 0 0 10px 0;
+            letter-spacing: -0.5px;
+        }
+        .chapter-number {
+            color: var(--accent-color);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 5px;
+        }
+        h2 {
+            font-size: 1.4rem;
+            color: #ffffff;
+            margin-top: 35px;
+            border-left: 4px solid var(--accent-color);
+            padding-left: 12px;
+        }
+        p {
+            color: #c9d1d9;
+        }
+        .vibe-check {
+            background-color: rgba(63, 185, 80, 0.1);
+            border: 1px solid rgba(63, 185, 80, 0.3);
+            border-radius: 6px;
+            padding: 15px 20px;
+            margin: 25px 0;
+        }
+        .vibe-check strong {
+            color: var(--green-color);
+            display: block;
+            margin-bottom: 5px;
+        }
+        .step-list {
+            padding-left: 20px;
+        }
+        .step-list li {
+            margin-bottom: 12px;
+        }
+        .step-list strong {
+            color: #ffffff;
+        }
+        .code-box {
+            background-color: #000000;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 15px;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 0.9rem;
+            color: var(--warn-color);
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+        footer {
+            margin-top: 60px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #8b949e;
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        footer a { color: var(--accent-color); text-decoration: none; }
+        .edit-btn {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 6px 12px;
+            border-radius: 4px;
+            color: #c9d1d9 !important;
+            transition: all 0.2s;
+        }
+        .edit-btn:hover {
+            background-color: var(--border-color);
+            color: #ffffff !important;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="nav-back">
+        <a href="./index.html">⬅️ 메인 목차로 돌아가기</a>
+    </div>
+
+    <header>
+        <span class="chapter-number">1부: 인프라 기초 체력 — 2장</span>
+        <h1>파이어베이스(Firebase) 선제 타격과 DB 자동 매칭</h1>
+    </header>
+
+    <section>
+        <h2>🧐 왜 자동 배포는 매번 DB 생성에서 터질까요?</h2>
+        <p>
+            Google AI Studio에서 배포(Publisher) 버튼을 누르면 인프라 구동 공간(Cloud Run)과 데이터 금고(Firebase Realtime Database)를 자동으로 한 번에 만드려고 시도합니다. 이때 구글의 엄격한 <strong>'원초적 이름 규칙'</strong>과 충돌이 일어납니다.
+        </p>
+        <div class="code-box">
+            구글의 대원칙: 첫 번째 기본 DB ID는 반드시 [프로젝트명-default-rtdb] 구조여야 한다.
+        </div>
+        <p>
+            하지만 AI Studio 배포 로봇은 무작정 프로젝트명과 100% 똑같은 이름으로 DB를 만들려고 고집을 부리다 거절당합니다. 결국 배포 전체가 꼬이고 웹사이트는 404 에러의 미로에 가치게 됩니다.
+        </p>
+    </section>
+
+    <section>
+        <h2>🛠️ 실전 Vibe: 파이어베이스 선제 타격 프로토콜</h2>
+        <p>백엔드가 떼쓰기 전에 격리된 Workspace 크롬 창을 열고 내가 먼저 금고를 안전하게 구축합니다.</p>
+        
+        <ol class="step-list">
+            <li><strong>프로젝트 투 트랙 분리:</strong> Firebase 콘솔에 접속하여 내 도메인 지식을 담은 개발용(<code>goguma-dev</code>)과 배포용(<code>goguma-prod</code>) 프로젝트 2개를 선제 생성합니다.</li>
+            <li><strong>Realtime Database 미리 켜기:</strong> 배포용 프로젝트 진입 ➡️ [Build] ➡️ [Realtime Database] ➡️ 데이터베이스 만들기를 클릭합니다.</li>
+            <li><strong>최적의 서빙 위치 선택:</strong> 아시아 지역에서 가장 가깝고 쾌적한 <strong>싱가포르(asia-southeast1)</strong>를 선택합니다.</li>
+            <li><strong>보안 규칙 최종 승인:</strong> 빠른 연동 테스트를 위해 <strong>[테스트 모드(Test Mode)]</strong>를 선택하고 생성을 완료합니다.</li>
+        </ol>
+
+        <div class="vibe-check">
+            <strong>✅ Vibe Check 완료</strong>
+            이 수동 작업을 마쳐두면 구글 시스템 내부에 표준 규칙에 맞는 완벽한 DB가 먼저 자리를 잡게 됩니다.
+        </div>
+    </section>
+
+    <section>
+        <h2>🚀 AI Studio와의 Seamless 자동 매칭</h2>
+        <p>금고가 미리 준비되었기 때문에, 이제 AI Studio로 돌아가 배포할 때 신세계가 열립니다.</p>
+        <p>
+            AI Studio 배포 팝업창에서 프로젝트를 새로 만들지 말고, 목록에서 <strong>내가 미리 만들어 둔 배포용 프로젝트(<code>goguma-prod</code>)를 정확히 선택</strong>해 줍니다. 배포 로봇이 DB를 만들려다가 "어? 이미 완벽한 규격의 DB가 있네?"라며 그대로 숟가락만 얹고 통과하므로 권한 충돌 및 404 오류 확률이 0%가 됩니다.
+        </p>
+    </section>
+
+    <footer>
+        <span>Powered by <a href="https://goguma.app" target="_blank">goguma.app</a></span>
+        <a href="https://github.com" target="_blank" class="edit-btn">📝 GitHub에서 이 문서 수정하기</a>
+    </footer>
+</div>
+
+</body>
+</html>
