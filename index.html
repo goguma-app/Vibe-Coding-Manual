@@ -149,16 +149,32 @@
         }
         .toc-item a:hover {
             color: var(--accent-color);
-        }
-        footer {
+    footer {
             margin-top: 60px;
             text-align: center;
             font-size: 0.85rem;
             color: #8b949e;
             border-top: 1px solid var(--border-color);
             padding-top: 20px;
-        }
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+    }
         footer a { color: var(--accent-color); text-decoration: none; }
+        .edit-btn {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 6px 12px;
+            border-radius: 4px;
+            color: #c9d1d9 !important;
+            transition: all 0.2s;
+            text-decoration: none;
+    }
+        .edit-btn:hover {
+            background-color: var(--border-color);
+            color: #ffffff !important;
+    }
+
     </style>
 </head>
 <body>
@@ -298,9 +314,19 @@
             <span class="status done">최신본</span>
             <a href="./appendix3.html">부록 3장. 마크다운(Markdown) 치트키 문법 및 기호 활용법</a>
         </li>
+        <li class="toc-item">
+            <span class="status done">최신본</span>
+            <a href="./appendix4.html">추가 4장. AI Studio 마크다운 생산과 Firebase 실시간 연동 프로토콜</a>
+        </li>
     </ul>
 </div>
 
     </section>
 
-    <footer>
+       <!-- 메인 대진표 하단 최종 푸터 영역 -->
+   <footer>
+      <span>Powered by <a href="https://goguma.app" target="_blank">goguma.app</a> - AI Prompt Structural Builder</span>
+      <!-- 💡 메인 인덱스 전용 수정 제안 단축 숏컷 링크 -->
+      <a href="https://github.com" target="_blank" class="edit-btn">📝 GitHub에서 이 메인 화면 수정하기</a>
+  </footer>
+
