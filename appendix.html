@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>부록. 신세계의 문: VS Code × GitHub 완벽 동기화 및 단방향 워크플로우 실전 가이드 - 바이브 코딩 원초적 매뉴얼</title>
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #111111;
+            --accent-color: #ff5a00;
+            --muted-color: #666666;
+            --border-color: #eaeaea;
+            --code-bg: #f7f7f7;
+            --max-width: 720px;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #0b0b0b;
+                --text-color: #eeeeee;
+                --accent-color: #ff6b1a;
+                --muted-color: #a0a0a0;
+                --border-color: #222222;
+                --code-bg: #161616;
+            }
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: var(--max-width);
+        }
+
+        .nav-back {
+            display: inline-block;
+            color: var(--muted-color);
+            text-decoration: none;
+            font-size: 0.95rem;
+            margin-bottom: 30px;
+            transition: color 0.2s;
+        }
+
+        .nav-back:hover {
+            color: var(--accent-color);
+        }
+
+        header {
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+        }
+
+        .category {
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--accent-color);
+            margin: 0 0 8px 0;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            line-height: 1.3;
+            margin: 0;
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 40px 0 20px 0;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        p {
+            margin: 0 0 20px 0;
+            font-size: 1.05rem;
+        }
+
+        strong {
+            font-weight: 700;
+        }
+
+        ul, ol {
+            margin: 0 0 25px 0;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            font-size: 1.05rem;
+        }
+
+        .vibe-box {
+            background-color: var(--code-bg);
+            border-left: 3px solid var(--accent-color);
+            padding: 20px;
+            border-radius: 4px;
+            margin: 30px 0;
+        }
+
+        .vibe-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: var(--code-bg);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: var(--accent-color);
+        }
+
+        .shortcut {
+            background-color: var(--code-bg);
+            border: 1px solid var(--border-color);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-weight: bold;
+        }
+
+        .workflow-diagram {
+            background-color: var(--code-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 20px;
+            margin: 30px 0;
+            font-family: monospace;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        footer {
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            color: var(--muted-color);
+            font-size: 0.95rem;
+        }
+
+        footer a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        footer a:hover {
+            color: var(--accent-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="nav-back">← 메인 목차로 돌아가기</a>
+        
+        <header>
+            <p class="category">특별 부록: 개발 생산성 확장팩 — 마스터 워크스페이스 세팅</p>
+            <h1>부록. 신세계의 문:<br>VS Code × GitHub 완벽 동기화 및 단방향 워크플로우 실전 가이드</h1>
+        </header>
+
+        <section>
+            <p>로컬 개발 도구(VS Code)와 원격 저장소(GitHub)가 실시간으로 소통하는 메커니즘을 깨닫는 순간, 개발은 지루한 문서 작성이 아닌 하나의 예술적인 동기화 퍼포먼스가 됩니다. 깃허브 웹에서 일일이 코드를 붙여넣던 비효율을 걷어내고, 내 컴퓨터를 중심축으로 삼아 클라우드 전체를 흔드는 마스터 제어 기술을 요약합니다.</p>
+
+            <h2>⌨️ 1. 터미널 명령어로 찰나에 코드 보내기 (Push)</h2>
+            <p>작업 공간이 VS Code로 고정되었다면, 마우스에 손을 대지 않고 하단 터미널 창(<span class="shortcut">Ctrl + ~</span>)에 단 3줄의 원초적 명령어를 주입하여 깃허브와 전 세계 에지 인프라로 코드를 스트리밍합니다.</p>
+            
+            <ol>
+                <li><code>git add .</code> : 변경된 모든 파일(HTML, MD, 이미지 등)을 전송 대기열에 올립니다.</li>
+                <li><code>git commit -m "원자적 메시지"</code> : 닻을 내리는 마음으로 이번 코드 점(Dot)의 변경 사유를 명확히 각인합니다.</li>
+                <li><code>git push origin main</code> : 깃허브 마스터 브랜치로 코드를 강제 릴레이합니다.</li>
+            </ol>
+
+            <h2>🔄 2. 클라우드 상태를 내 로컬로 실시간 당겨오기 (Pull)</h2>
+            <p>만약 외부나 깃허브 웹사이트에서 직접 파일을 수정했다면, 내 컴퓨터의 VS Code와 파일 상태가 달라집니다. 이때 아래의 명령어로 원격 저장소의 뇌리를 로컬 컴퓨터로 깨끗하게 빨아들입니다.</p>
+            
+            <ul>
+                <li><strong>원클릭 명령어:</strong> 터미널에 <code>git pull origin main</code>을 입력합니다.</li>
+                <li><strong>GUI 방식:</strong> 소스 제어 메뉴(<span class="shortcut">Ctrl + Shift + G</span>) ➡️ 상단 <span class="shortcut">...</span> 버튼 ➡️ <strong>Pull (가져오기)</strong> 클릭.</li>
+            </ul>
+
+            <h2>🛡️ 3. 휴먼 에러 제로: 단방향 청정 워크플로우 규칙</h2>
+            <p>양쪽에서 동시에 코드를 수정하면 데이터가 찢어지는 '충돌(Conflict) 에러'가 발생합니다. 바이브 코딩은 철저히 VS Code를 '생산 기지'로 삼고, 깃허브를 '보관 및 배포처'로 삼는 단방향 흐름을 절대 원칙으로 고수합니다.</p>
+
+            <div class="workflow-diagram">
+                [1단계: 시작 전 동기화] <code style="color: var(--accent-color);">git pull</code> (최신 상태 획득)<br>
+                ⬇️<br>
+                [2단계: 집중 생산 공간] **VS Code** 내부에서 사유하며 자유롭게 마크업 코딩<br>
+                ⬇️<br>
+                [3단계: 최종 안전 배포] <code style="color: var(--accent-color);">git push</code> (원격 저장소 및 글로벌 에지 릴레이)
+            </div>
+
+            <h2>🚨 인증 만료 및 403 권한 에러 돌파 공식</h2>
+            <p>컴퓨터 내부의 깃허브 보안 세션 자격 증명이 꼬여 전송 거부 경고가 뜰 때 수행하는 즉각 우회 매뉴얼입니다.</p>
+            
+            <ol>
+                <li>VS Code 최좌측 하단의 **사람 모양(Account) 아이콘**을 클릭합니다.</li>
+                <li>기존 로그아웃 후 `Sign in with GitHub`을 실행하여 브라우저에서 올바른 계정 권한을 리프레시합니다.</li>
+                <li>여전히 막힌다면 윈도우의 `자격 증명 관리자` ➡️ `Windows 자격 증명`에서 `git:https://github.com` 항목을 강제 포맷(제거)한 후 재시도합니다.</li>
+            </ol>
+
+            <div class="vibe-box">
+                <h3>💡 바이브 코딩 철학 노트 (Vibe Note)</h3>
+                <p>도구와 도구가 유기적으로 엮여 내 손끝의 명령 하나에 전 세계 서버가 실시간으로 춤추는 구조를 이해하는 것, 이것이 바로 진정한 컴퓨터 컴퓨팅 Vibe입니다. 작업의 공간을 하나로 통일하고 흐름을 정형화할 때, 비로소 인간은 사소한 파일 관리 스트레스에서 해방되어 더 위대한 아이디어를 창조하는 데 뇌의 에너지를 100% 사용할 수 있습니다.</p>
+            </div>
+        </section>
+
+        <footer>
+            <a href="chapter10.html">← 10장. 자동 배포 파이프라인</a>
+            <a href="index.html">원초적 매뉴얼 메인 목차로 ↑</a>
+        </footer>
+    </div>
+</body>
+</html>
