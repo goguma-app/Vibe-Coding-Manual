@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1장. 크롬 프로필 격리: 로그인 미로 탈출하기</title>
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --text-color: #c9d1d9;
+            --accent-color: #58a6ff;
+            --card-bg: #161b22;
+            --border-color: #30363d;
+            --green-color: #3fb950;
+            --warn-color: #f0883e;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .nav-back {
+            margin-bottom: 20px;
+        }
+        .nav-back a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+        header {
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 20px;
+            margin-bottom: 35px;
+        }
+        h1 {
+            font-size: 2rem;
+            color: #ffffff;
+            margin: 0 0 10px 0;
+            letter-spacing: -0.5px;
+        }
+        .chapter-number {
+            color: var(--accent-color);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 5px;
+        }
+        h2 {
+            font-size: 1.4rem;
+            color: #ffffff;
+            margin-top: 35px;
+            border-left: 4px solid var(--accent-color);
+            padding-left: 12px;
+        }
+        p {
+            color: #c9d1d9;
+        }
+        .vibe-check {
+            background-color: rgba(240, 136, 62, 0.1);
+            border: 1px solid rgba(240, 136, 62, 0.3);
+            border-radius: 6px;
+            padding: 15px 20px;
+            margin: 25px 0;
+        }
+        .vibe-check strong {
+            color: var(--warn-color);
+            display: block;
+            margin-bottom: 5px;
+        }
+        .step-list {
+            padding-left: 20px;
+        }
+        .step-list li {
+            margin-bottom: 12px;
+        }
+        .step-list strong {
+            color: #ffffff;
+        }
+        .code-box {
+            background-color: #000000;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 15px;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 0.9rem;
+            color: var(--green-color);
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+        footer {
+            margin-top: 60px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #8b949e;
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        footer a { color: var(--accent-color); text-decoration: none; }
+        .edit-btn {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 6px 12px;
+            border-radius: 4px;
+            color: #c9d1d9 !important;
+            transition: all 0.2s;
+        }
+        .edit-btn:hover {
+            background-color: var(--border-color);
+            color: #ffffff !important;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="nav-back">
+        <a href="./index.html">⬅️ 메인 목차로 돌아가기</a>
+    </div>
+
+    <header>
+        <span class="chapter-number">1부: 인프라 기초 체력 — 1장</span>
+        <h1>크롬 프로필 격리: 로그인 미로 탈출하기</h1>
+    </header>
+
+    <section>
+        <h2>🧐 왜 프로필을 나누지 않으면 망할까요?</h2>
+        <p>
+            바이브 코딩의 가장 큰 적은 코딩 오류가 아니라 **'구글 계정 꼬임 현상'**입니다. 개인 지메일, 팀 Workspace 계정, 발주처 계정 등 여러 구글 세션이 브라우저 하나에 섞여 있으면, Google AI Studio가 배포 버튼을 누를 때 엉뚱한 개인 계정에 유령 클라우드 프로젝트를 임의로 개설해 버립니다. 이로 인해 인프라 분실 및 권한 충돌 에러가 필연적으로 발생합니다.
+        </p>
+        
+        <div class="vibe-check">
+            <strong>⚠️ 원초적 Vibe 경고</strong>
+            인프라 권한 충돌 에러인 <code>Concurrent policy changes</code> 메시지를 보셨다면, 100% 브라우저 세션에서 여러 구글 계정이 서로 주도권을 잡으려고 싸우다 구글 보안 시스템이 락을 걸어버린 것입니다.
+        </div>
+    </section>
+
+    <section>
+        <h2>🛠️ 1분 만에 완벽한 격리 작업실 만드는 법</h2>
+        <p>전체 과정을 손으로 따라 하며 체득하세요. 한 번 세팅하면 평생 편리합니다.</p>
+        
+        <ol class="step-list">
+            <li><strong>크롬 프로필 메뉴 진입:</strong> 크롬 브라우저 우측 최상단에 있는 내 구글 프로필 동그라미 아이콘을 클릭합니다.</li>
+            <li><strong>새 프로필 추가:</strong> 팝업 메뉴 맨 아래에 있는 <strong>[+ 추가 (Add)]</strong> 버튼을 누릅니다.</li>
+            <li><strong>Workspace 계정 로그인:</strong> '새 Chrome 프로필 설정' 창이 뜨면 <strong>[로그인]</strong>을 선택하고, 오직 이번 매뉴얼 프로젝트 전용인 Google Workspace 조직 계정(예: <code>admin@kwavemission.org</code>)으로만 로그인을 진행합니다.</li>
+            <li><strong>바이브 데스크톱 분리:</strong> 프로필 테마 색상을 눈에 띄는 색으로 지정하고, 바탕화면에 바로가기 아이콘을 생성합니다.</li>
+        </ol>
+    </section>
+
+    <section>
+        <h2>🎯 작업실 완공 후의 Seamless 동기화 공식</h2>
+        <p>이렇게 완전히 분리된 전용 크롬 창을 켜면, 주소창에 아래 3대 인프라를 띄웠을 때 단 1초도 로그인 전환에 낭비되는 시간 없이 무조건 단일 프로젝트로 완벽하게 톱니바퀴가 맞물려 돌아갑니다.</p>
+        
+        <div class="code-box">
+            1. AI Studio  ➡️  ://google.com<br>
+            2. Firebase   ➡️  ://google.com<br>
+            3. GCP Console ➡️  ://google.com
+        </div>
+        
+        <p>이 세 개의 탭은 이제 하나의 Workspace 계정 소유로 통일되어, 권한 충돌이나 프로젝트 분실 없이 영원히 안전하게 연동됩니다.</p>
+    </section>
+
+    <footer>
+        <span>Powered by <a href="https://goguma.app" target="_blank">goguma.app</a></span>
+        <!-- 💡 깃허브 아이디와 저장소 이름이 확정되면 아래 주소를 내 것에 맞게 수정하세요 -->
+        <a href="https://github.com" target="_blank" class="edit-btn">📝 GitHub에서 이 문서 수정하기</a>
+    </footer>
+</div>
+
+</body>
+</html>
