@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>추가 2장. GitHub와 Cloudflare Pages 인증 및 실시간 연동법</title>
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --text-color: #c9d1d9;
+            --accent-color: #58a6ff;
+            --card-bg: #161b22;
+            --border-color: #30363d;
+            --green-color: #3fb950;
+            --warn-color: #f0883e;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .nav-back {
+            margin-bottom: 20px;
+        }
+        .nav-back a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+        header {
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 20px;
+            margin-bottom: 35px;
+        }
+        h1 {
+            font-size: 2rem;
+            color: #ffffff;
+            margin: 0 0 10px 0;
+            letter-spacing: -0.5px;
+        }
+        .chapter-number {
+            color: var(--accent-color);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 5px;
+        }
+        h2 {
+            font-size: 1.4rem;
+            color: #ffffff;
+            margin-top: 35px;
+            border-left: 4px solid var(--accent-color);
+            padding-left: 12px;
+        }
+        p {
+            color: #c9d1d9;
+        }
+        .vibe-check {
+            background-color: rgba(63, 185, 80, 0.1);
+            border: 1px solid rgba(63, 185, 80, 0.3);
+            border-radius: 6px;
+            padding: 15px 20px;
+            margin: 25px 0;
+        }
+        .vibe-check strong {
+            color: var(--green-color);
+            display: block;
+            margin-bottom: 5px;
+        }
+        .step-list {
+            padding-left: 20px;
+        }
+        .step-list li {
+            margin-bottom: 12px;
+        }
+        .step-list strong {
+            color: #ffffff;
+        }
+        .code-box {
+            background-color: #000000;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 15px;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 0.9rem;
+            color: var(--accent-color);
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+        footer {
+            margin-top: 60px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #8b949e;
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        footer a { color: var(--accent-color); text-decoration: none; }
+        .edit-btn {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 6px 12px;
+            border-radius: 4px;
+            color: #c9d1d9 !important;
+            transition: all 0.2s;
+        }
+        .edit-btn:hover {
+            background-color: var(--border-color);
+            color: #ffffff !important;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="nav-back">
+        <a href="./index.html">⬅️ 메인 목차로 돌아가기</a>
+    </div>
+
+    <header>
+        <span class="chapter-number">심화 과정 — 추가 2장</span>
+        <h1>GitHub와 Cloudflare Pages 인증 및 실시간 연동법</h1>
+    </header>
+
+    <section>
+        <h2>🧐 연동(Integration)을 해야 수동 작업이 비로소 제로가 됩니다</h2>
+        <p>
+            내 컴퓨터에서 <code>index.html</code>을 생성한 뒤 Cloudflare 대시보드에 매번 마우스로 파일을 집어던져(Direct Upload) 배포하는 방식은 린(Lean)하지 못합니다. 수정할 때마다 드래그하는 피로가 누적되기 때문입니다.
+        </p>
+        <p>
+            Cloudflare와 깃허브 저장소를 단 한 번만 안전하게 <strong>App 인증(OAuth Handshake)</strong>으로 통일해 두면, 깃허브 저장소의 심장 박동에 맞춰 Cloudflare가 알아서 빌드와 도메인 최적화를 무한 대행해 주는 파이프라인이 개통됩니다.
+        </p>
+    </section>
+
+    <section>
+        <h2>🛠️ 실전 릴레이: 깃허브-클라우드플레어 무결점 연동 프로토콜</h2>
+        <p>두 플랫폼의 로그인 창이 격리되지 않도록 와이드 모니터에 나란히 띄워두고 진행하면 편리합니다.</p>
+        
+        <ol class="step-list">
+            <li><strong>Pages 생성 인터페이스 진입:</strong> Cloudflare 대시보드 왼쪽 메뉴에서 <strong>[Workers 및 Pages] ➡️ [만들기] ➡️ [Pages]</strong> 탭을 순서대로 클릭합니다.</li>
+            <li><strong>Git 연결 오토메이션 선택:</strong> '자산 직접 업로드' 대신 우측에 있는 <strong>[GitHub에 연결 (Connect to Git)]</strong> 파란색 버튼을 누릅니다.</li>
+            <li><strong>보안 권한 위임 및 조직 전환:</strong> 깃허브 로그인 팝업창이 뜨면 소유자(Owner) 선택 화면에서 내 개인 계정이 아닌, 우리가 미리 만들어 둔 <strong>`goguma-app` 조직(Organization)</strong>을 정확하게 지정합니다.</li>
+            <li><strong>특정 저장소 타겟팅 (보안 추천):</strong> 'All repositories(모든 저장소)' 대신 **[Only select repositories]**를 체크한 뒤, 목록에서 매뉴얼 전용 저장소인 <code>vibecoding</code>을 명확하게 타겟팅하여 최종 연동 승인(Install & Authorize)을 내립니다.</li>
+            <li><strong>빌드 세팅 건너뛰기:</strong> 저장소를 선택하고 [설정 시작]을 누르면 프레임워크를 고르라는 복잡한 창이 나옵니다. 우리는 순수한 원초적 최소 코드를 지향하므로 빌드 설정을 **[None (없음)]**으로 유지하고 프레임워크 프리셋도 건너뛴 채 맨 아래 **[저장 및 배포]**를 누릅니다.</li>
+        </ol>
+
+        <div class="vibe-check">
+            <strong>✅ 파이프라인 개통 완료</strong>
+            이제 Cloudflare에 <code>https://pages.dev</code>라는 고유한 배포 공용 주소가 무상 공급됩니다. 이 프로젝트 관리 화면에서 [사용자 지정 도메인] 탭을 눌러 <code>vibecoding.goguma.app</code>만 적어주면 DNS 설정까지 단 한 번에 자동 통합됩니다.
+        </div>
+    </section>
+
+    <section>
+        <h2>🌱 에코 코딩 관점의 실시간 연동 가치</h2>
+        <p>
+            이 연동 구조는 내 컴퓨터에서 파일을 압축하고 서버로 전송하는 데 드는 로컬 자원의 낭비를 완벽히 억제합니다. 오직 '문서 파일 내부의 글자가 변경되었을 때만' 클라우드 환경 내에서 안전하게 가상 전파 연산이 일어나므로, 가장 환경 파괴가 적고 지속 가능한 스마트 워크플로우(Smart Workflow)를 증명합니다.
+        </p>
+    </section>
+
+    <footer>
+        <span>Powered by <a href="https://goguma.app" target="_blank">goguma.app</a></span>
+        <a href="https://github.com" target="_blank" class="edit-btn">📝 GitHub에서 이 문서 수정하기</a>
+    </footer>
+</div>
+
+</body>
+</html>
