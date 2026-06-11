@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>추가 3장. 마크다운(Markdown) 치트키 문법 및 기호 활용법</title>
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --text-color: #c9d1d9;
+            --accent-color: #58a6ff;
+            --card-bg: #161b22;
+            --border-color: #30363d;
+            --green-color: #3fb950;
+            --warn-color: #f0883e;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .nav-back {
+            margin-bottom: 20px;
+        }
+        .nav-back a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+        header {
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 20px;
+            margin-bottom: 35px;
+        }
+        h1 {
+            font-size: 2rem;
+            color: #ffffff;
+            margin: 0 0 10px 0;
+            letter-spacing: -0.5px;
+        }
+        .chapter-number {
+            color: var(--accent-color);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 5px;
+        }
+        h2 {
+            font-size: 1.4rem;
+            color: #ffffff;
+            margin-top: 35px;
+            border-left: 4px solid var(--accent-color);
+            padding-left: 12px;
+        }
+        p {
+            color: #c9d1d9;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+        th {
+            background-color: rgba(48, 54, 61, 0.6);
+            color: #ffffff;
+            font-size: 0.95rem;
+        }
+        td {
+            font-size: 0.9rem;
+        }
+        .inline-code {
+            background-color: rgba(139, 148, 158, 0.2);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: "Courier New", Courier, monospace;
+            color: #ff7b72;
+        }
+        .code-box {
+            background-color: #000000;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 15px;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 0.9rem;
+            color: var(--green-color);
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+        .vibe-check {
+            background-color: rgba(240, 136, 62, 0.1);
+            border: 1px solid rgba(240, 136, 62, 0.3);
+            border-radius: 6px;
+            padding: 15px 20px;
+            margin: 25px 0;
+        }
+        .vibe-check strong {
+            color: var(--warn-color);
+            display: block;
+            margin-bottom: 5px;
+        }
+        footer {
+            margin-top: 60px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #8b949e;
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        footer a { color: var(--accent-color); text-decoration: none; }
+        .edit-btn {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 6px 12px;
+            border-radius: 4px;
+            color: #c9d1d9 !important;
+            transition: all 0.2s;
+        }
+        .edit-btn:hover {
+            background-color: var(--border-color);
+            color: #ffffff !important;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="nav-back">
+        <a href="./index.html">⬅️ 메인 목차로 돌아가기</a>
+    </div>
+
+    <header>
+        <span class="chapter-number">심화 과정 — 추가 3장</span>
+        <h1>마크다운(Markdown) 치트키 문법 및 기호 활용법</h1>
+    </header>
+
+    <section>
+        <h2>🧐 마크다운은 글쓰기와 코딩의 완벽한 합작품입니다</h2>
+        <p>
+            마크다운은 복잡한 HTML 태그(<code>&lt;h1&gt;, &lt;p&gt;</code> 등)를 쓰지 않고, 순수한 텍스트와 몇 가지 특수문자 기호만으로 문서의 구조를 완벽히 설계하는 마법의 서식 언어입니다. 깃허브, 노션, AI Studio 등 신세대 플랫폼들은 모두 이 마크다운을 기본 언어로 사용합니다.
+        </p>
+    </section>
+
+    <section>
+        <h2>📊 Vibe 코더 필수 마크다운 치트시트</h2>
+        <p>기억하세요. 마크다운 기호를 입력한 뒤에는 **반드시 한 칸 띄어쓰기(Space)**를 해야 기능이 켜집니다.</p>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>원하는 효과</th>
+                    <th>내가 입력할 기호 (정적 소스)</th>
+                    <th>화면에 출력되는 결과</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>가장 큰 제목</strong></td>
+                    <td><span class="inline-code"># 대제목</span></td>
+                    <td style="font-size:1.2rem; font-weight:bold; color:#fff;">대제목</td>
+                </tr>
+                <tr>
+                    <td><strong>중간 서브 제목</strong></td>
+                    <td><span class="inline-code">## 중제목</span></td>
+                    <td style="font-size:1rem; font-weight:bold; color:#fff;">중제목</td>
+                </tr>
+                <tr>
+                    <td><strong>글자 두껍게</strong></td>
+                    <td><span class="inline-code">**강조할 글자**</span></td>
+                    <td><strong>강조할 글자</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>글자 기울임</strong></td>
+                    <td><span class="inline-code">*기울일 글자*</span></td>
+                    <td><em>기울일 글자</em></td>
+                </tr>
+                <tr>
+                    <td><strong>점 기호 리스트</strong></td>
+                    <td><span class="inline-code">- 리스트 내용</span></td>
+                    <td>• 리스트 내용</td>
+                </tr>
+                <tr>
+                    <td><strong>인용구 박스</strong></td>
+                    <td><span class="inline-code">&gt; 강조 대사</span></td>
+                    <td style="border-left:3px solid #8b949e; padding-left:10px; color:#8b949e;">강조 대사</td>
+                </tr>
+                <tr>
+                    <td><strong>하이퍼링크 주소</strong></td>
+                    <td><span class="inline-code">[이름](URL주소)</span></td>
+                    <td><a href="https://goguma.app" target="_blank" style="color:var(--accent-color);">이름</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section>
+        <h2>코드 블록과 슬라이드 쪼개기 기술</h2>
+        <p>단순 글자 입력 외에, 시스템 명령어와 발표 자료 구조를 제어하는 핵심 특수 키입니다.</p>
+        
+        <ul class="step-list">
+            <li><strong>인라인 코드 박스 (숫자 1 왼쪽 백틱 ` ):</strong> 문장 중간에 주소나 변수명을 강조하고 싶을 때 단어 양옆을 백틱 기호(<code>`주소`</code>)로 감싸면 붉은색 고대비 박스로 가공됩니다.</li>
+            <li><strong>전체 코드 블록 (백틱 3개 ```):</strong> 긴 명령어 세트나 프로그램 코드를 묶을 때는 상단과 하단에 백틱 3개를 깔아줍니다. 상단 백틱 뒤에 영문 언어(예: <code>```html</code>)를 적으면 해당 언어의 색상이 입혀집니다.</li>
+            <li><strong>가로선 및 슬라이드 구분 (대시 3개 ---):</strong> 하이픈 3개를 치고 엔터를 누르면 깔끔한 가로 분선선이 생깁니다. 이 기호는 앞서 배운 발표 도구 <strong>'Marp'</strong>에서 다음 16:9 슬라이드 페이지로 화면을 쪼개는 경계선 역할을 수행합니다.</li>
+        </ul>
+
+        <div class="vibe-check">
+            <strong>⚠️ Vibe Net to Dot 실천 주의사항</strong>
+            이미지 링크를 넣을 때는 <code>![이미지설명](이미지URL)</code> 형식을 쓰지만, 우리의 청정 에코 코딩 원칙에 따라 불필요한 이미지 낭비는 최소화하고 텍스트 본연의 밀도 높은 가치(Dots)만 채워 넣는 것을 강력히 권장합니다.
+        </div>
+    </section>
+
+    <footer>
+        <span>Powered by <a href="https://goguma.app" target="_blank">goguma.app</a></span>
+        <a href="https://github.com" target="_blank" class="edit-btn">📝 GitHub에서 이 문서 수정하기</a>
+    </footer>
+</div>
+
+</body>
+</html>
