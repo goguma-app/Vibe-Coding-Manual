@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>추가 1장. VS Code 필수 사용법과 GitHub 연동 공식</title>
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --text-color: #c9d1d9;
+            --accent-color: #58a6ff;
+            --card-bg: #161b22;
+            --border-color: #30363d;
+            --green-color: #3fb950;
+            --warn-color: #f0883e;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .nav-back {
+            margin-bottom: 20px;
+        }
+        .nav-back a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+        header {
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 20px;
+            margin-bottom: 35px;
+        }
+        h1 {
+            font-size: 2rem;
+            color: #ffffff;
+            margin: 0 0 10px 0;
+            letter-spacing: -0.5px;
+        }
+        .chapter-number {
+            color: var(--accent-color);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 5px;
+        }
+        h2 {
+            font-size: 1.4rem;
+            color: #ffffff;
+            margin-top: 35px;
+            border-left: 4px solid var(--accent-color);
+            padding-left: 12px;
+        }
+        p {
+            color: #c9d1d9;
+        }
+        .vibe-check {
+            background-color: rgba(88, 166, 255, 0.1);
+            border: 1px solid rgba(88, 166, 255, 0.3);
+            border-radius: 6px;
+            padding: 15px 20px;
+            margin: 25px 0;
+        }
+        .vibe-check strong {
+            color: var(--accent-color);
+            display: block;
+            margin-bottom: 5px;
+        }
+        .step-list {
+            padding-left: 20px;
+        }
+        .step-list li {
+            margin-bottom: 12px;
+        }
+        .step-list strong {
+            color: #ffffff;
+        }
+        .code-box {
+            background-color: #000000;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 15px;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 0.9rem;
+            color: var(--green-color);
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+        footer {
+            margin-top: 60px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #8b949e;
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        footer a { color: var(--accent-color); text-decoration: none; }
+        .edit-btn {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 6px 12px;
+            border-radius: 4px;
+            color: #c9d1d9 !important;
+            transition: all 0.2s;
+        }
+        .edit-btn:hover {
+            background-color: var(--border-color);
+            color: #ffffff !important;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="nav-back">
+        <a href="./index.html">⬅️ 메인 목차로 돌아가기</a>
+    </div>
+
+    <header>
+        <span class="chapter-number">심화 과정 — 추가 1장</span>
+        <h1>VS Code 필수 사용법과 GitHub 연동 공식</h1>
+    </header>
+
+    <section>
+        <h2>🧐 왜 굳이 웹사이트 대신 VS Code 프로그램을 쓸까요?</h2>
+        <p>
+            GitHub 웹사이트에서 연필 아이콘을 눌러 글을 고치는 것은 직관적이지만, 파일이 10개, 20개로 늘어나면 한계에 부딪힙니다. 내 컴퓨터(로컬)의 폴더 구조를 그대로 유지하면서 여러 문서를 동시에 드래그하고, 단축키로 미학적 검토를 수행하려면 전 세계 표준 편집기인 <strong>Visual Studio Code(VS Code)</strong>가 필수적입니다.
+        </p>
+    </section>
+
+    <section>
+        <h2>🛠️ Vibe 코더를 위한 VS Code 3대 핵심 단축키</h2>
+        <p>어려운 코딩 기능은 다 버리고, 매뉴얼 빌드에 딱 필요한 핵심 스킬만 기억하세요.</p>
+        
+        <ul class="step-list">
+            <li><strong>프로젝트 폴더 열기 (Ctrl + O 또는 폴더 드래그):</strong> 내가 만든 매뉴얼 작업 폴더를 VS Code 화면에 통째로 떨어뜨리면 좌측에 깔끔한 파일 내비게이터 트리가 생성됩니다.</li>
+            <li><strong>마크다운 실시간 미리보기 (Ctrl + Shift + V):</strong> 마크다운(<code>.md</code>) 파일을 열고 이 단축키를 누르면, 오른쪽 화면에 실제 웹사이트로 사출될 미학적 서식이 실시간 분할 창으로 출력됩니다.</li>
+            <li><strong>전체 텍스트 검색 (Ctrl + Shift + F):</strong> 프로젝트 전체 파일 중에서 특정 단어나 도메인 주소(예: <code>goguma.app</code>)를 한 번에 찾아내어 일괄 수정할 때 유용합니다.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>🚀 내 컴퓨터와 GitHub 원클릭 연동 프로토콜</h2>
+        <p>터미널에 복잡한 검은 창 명령어(git clone, push 등)를 치지 않고, 마우스 딸깍으로 내 결과물을 깃허브에 사출하는 공식입니다.</p>
+        
+        <ol class="step-list">
+            <li><strong>GitHub 확장 연동 및 로그인 (최초 1회):</strong> VS Code 좌측 하단의 <strong>톱니바퀴(설정) 아이콘 ➡️ [Backup and Sync Settings]</strong> 또는 좌측 3번째 소스 제어 탭을 누르고 내 GitHub 계정 로그인을 연동하여 마스터 승인을 완료합니다.</li>
+            <li><strong>스테이징 (변경 사항 담기):</strong> 내 컴퓨터에서 html이나 md 파일을 수정하면 좌측 소스 제어 탭에 알림 숫자가 뜹니다. 변경된 파일 옆의 <strong>[+ (플러스)]</strong> 아이콘을 눌러 스테이지 바구니에 담습니다.</li>
+            <li><strong>커밋 메시지 작성:</strong> 상단 입력창에 오늘 작업한 내용을 나만의 역사로 기록합니다. (예: <code>"feat: 4장 매뉴얼 추가"</code>)</li>
+            <li><strong>동기화 및 밀어내기 (Commit & Push):</strong> 파란색 <strong>[Commit]</strong> 버튼을 누른 후 <strong>[Sync Changes(변경 내용 동기화)]</strong> 버튼을 누릅니다.</li>
+        </ol>
+
+        <div class="vibe-check">
+            <strong>✅ Seamless Automation 완성</strong>
+            VS Code에서 [Sync] 버튼을 누르는 순간, 내 컴퓨터의 파일이 깃허브 클라우드로 안전하게 쏘아 올려지며, 연쇄 작용으로 Cloudflare Pages가 이 신호를 받아 웹사이트를 실시간 자동 갱신합니다. USB나 FTP 폴더 투척은 완전히 역사 속으로 사라집니다.
+        </div>
+    </section>
+
+    <footer>
+        <span>Powered by <a href="https://goguma.app" target="_blank">goguma.app</a></span>
+        <a href="https://github.com" target="_blank" class="edit-btn">📝 GitHub에서 이 문서 수정하기</a>
+    </footer>
+</div>
+
+</body>
+</html>
