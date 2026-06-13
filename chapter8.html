@@ -4,173 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>8장. Net to Dot 코딩: 개인정보를 수집하지 않는 우아함 - 바이브 코딩 원초적 매뉴얼</title>
-    <style>
-        :root {
-            --bg-color: #ffffff;
-            --text-color: #111111;
-            --accent-color: #ff5a00;
-            --muted-color: #666666;
-            --border-color: #eaeaea;
-            --code-bg: #f7f7f7;
-            --max-width: 720px;
-        }
-
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --bg-color: #0b0b0b;
-                --text-color: #eeeeee;
-                --accent-color: #ff6b1a;
-                --muted-color: #a0a0a0;
-                --border-color: #222222;
-                --code-bg: #161616;
-            }
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.7;
-            margin: 0;
-            padding: 40px 20px;
-            display: flex;
-            justify-content: center;
-        }
-
-        .container {
-            width: 100%;
-            max-width: var(--max-width);
-        }
-
-        .nav-back {
-            display: inline-block;
-            color: var(--muted-color);
-            text-decoration: none;
-            font-size: 0.95rem;
-            margin-bottom: 30px;
-            transition: color 0.2s;
-        }
-
-        .nav-back:hover {
-            color: var(--accent-color);
-        }
-
-        header {
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 20px;
-            margin-bottom: 40px;
-        }
-
-        .category {
-            font-size: 0.9rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--accent-color);
-            margin: 0 0 8px 0;
-        }
-
-        h1 {
-            font-size: 2.2rem;
-            font-weight: 800;
-            line-height: 1.3;
-            margin: 0;
-            letter-spacing: -0.02em;
-        }
-
-        h2 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin: 40px 0 20px 0;
-            padding-bottom: 8px;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        h3 {
-            font-size: 1.15rem;
-            font-weight: 600;
-            margin: 30px 0 15px 0;
-        }
-
-        p {
-            margin: 0 0 20px 0;
-            font-size: 1.05rem;
-        }
-
-        strong {
-            font-weight: 700;
-        }
-
-        ul, ol {
-            margin: 0 0 25px 0;
-            padding-left: 20px;
-        }
-
-        li {
-            margin-bottom: 10px;
-            font-size: 1.05rem;
-        }
-
-        .concept-box {
-            display: flex;
-            justify-content: space-between;
-            gap: 20px;
-            margin: 30px 0;
-        }
-
-        .concept-card {
-            flex: 1;
-            background-color: var(--code-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .vibe-box {
-            background-color: var(--code-bg);
-            border-left: 3px solid var(--accent-color);
-            padding: 20px;
-            border-radius: 4px;
-            margin: 30px 0;
-        }
-
-        .vibe-box p:last-child {
-            margin-bottom: 0;
-        }
-
-        .conclusion-quote {
-            font-size: 1.2rem;
-            font-weight: 700;
-            text-align: center;
-            margin: 40px 0;
-            padding: 20px;
-            border-top: 2px dashed var(--border-color);
-            border-bottom: 2px dashed var(--border-color);
-            color: var(--accent-color);
-            line-height: 1.6;
-        }
-
-        footer {
-            margin-top: 60px;
-            padding-top: 20px;
-            border-top: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-between;
-            color: var(--muted-color);
-            font-size: 0.95rem;
-        }
-
-        footer a {
-            color: var(--text-color);
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        footer a:hover {
-            color: var(--accent-color);
-        }
-    </style>
+    
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body>
     <div class="container">
@@ -188,13 +23,13 @@
 
             <div class="concept-box">
                 <div class="concept-card">
-                    <strong style="color: #666666;">전통적인 웹 (Net)</strong><br><br>
+                    <strong>전통적인 웹 (Net)</strong><br><br>
                     촘촘한 그물망 수집<br>
                     알고리즘 중독 유도<br>
                     보안 유출 리스크 상존
                 </div>
-                <div class="concept-card" style="border-color: var(--accent-color);">
-                    <strong style="color: var(--accent-color);">바이브 코딩 (Dot)</strong><br><br>
+                <div class="concept-card">
+                    <strong>바이브 코딩 (Dot)</strong><br><br>
                     찰나의 점 마킹<br>
                     인간의 사유 권장<br>
                     원천적인 유출 차단
@@ -227,11 +62,11 @@
                 <p><strong>Net to Dot 개념은 단순한 기술 스펙이 아닌 디지털 철학의 이정표입니다.</strong> 그물을 던져 사용자를 가두고 데이터를 강탈하는 거대 기업들의 방식에 맞서, 필요한 찰나에만 스파크처럼 점(Dot)을 찍고 흔적 없이 사라지는 미학. 이 매뉴얼이 구축한 인프라는 바로 그 우아한 철학을 온전히 증명하기 위한 단단한 바닥입니다.</p>
             </div>
         </section>
+    <div id="common-footer"></div>
+</div>
 
-        <footer>
-            <a href="chapter7.html">← 7장. 그린/에코 코딩</a>
-            <a href="index.html">메인 목차로 돌아가기 ↑</a>
-        </footer>
-    </div>
+<script src="./footer.js"></script>
 </body>
 </html>
+
+

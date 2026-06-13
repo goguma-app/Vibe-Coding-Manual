@@ -4,187 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>5장. 와이드 모니터의 미학: 분할 화면 복사/붙여넣기 기술 - 바이브 코딩 원초적 매뉴얼</title>
-    <style>
-        :root {
-            --bg-color: #ffffff;
-            --text-color: #111111;
-            --accent-color: #ff5a00;
-            --muted-color: #666666;
-            --border-color: #eaeaea;
-            --code-bg: #f7f7f7;
-            --max-width: 720px;
-        }
-
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --bg-color: #0b0b0b;
-                --text-color: #eeeeee;
-                --accent-color: #ff6b1a;
-                --muted-color: #a0a0a0;
-                --border-color: #222222;
-                --code-bg: #161616;
-            }
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.7;
-            margin: 0;
-            padding: 40px 20px;
-            display: flex;
-            justify-content: center;
-        }
-
-        .container {
-            width: 100%;
-            max-width: var(--max-width);
-        }
-
-        .nav-back {
-            display: inline-block;
-            color: var(--muted-color);
-            text-decoration: none;
-            font-size: 0.95rem;
-            margin-bottom: 30px;
-            transition: color 0.2s;
-        }
-
-        .nav-back:hover {
-            color: var(--accent-color);
-        }
-
-        header {
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 20px;
-            margin-bottom: 40px;
-        }
-
-        .category {
-            font-size: 0.9rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--accent-color);
-            margin: 0 0 8px 0;
-        }
-
-        h1 {
-            font-size: 2.2rem;
-            font-weight: 800;
-            line-height: 1.3;
-            margin: 0;
-            letter-spacing: -0.02em;
-        }
-
-        h2 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin: 40px 0 20px 0;
-            padding-bottom: 8px;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        h3 {
-            font-size: 1.15rem;
-            font-weight: 600;
-            margin: 30px 0 15px 0;
-        }
-
-        p {
-            margin: 0 0 20px 0;
-            font-size: 1.05rem;
-        }
-
-        strong {
-            font-weight: 700;
-        }
-
-        ul, ol {
-            margin: 0 0 25px 0;
-            padding-left: 20px;
-        }
-
-        li {
-            margin-bottom: 10px;
-            font-size: 1.05rem;
-        }
-
-        .vibe-box {
-            background-color: var(--code-bg);
-            border-left: 3px solid var(--accent-color);
-            padding: 20px;
-            border-radius: 4px;
-            margin: 30px 0;
-        }
-
-        .vibe-box p:last-child {
-            margin-bottom: 0;
-        }
-
-        code {
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
-            background-color: var(--code-bg);
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-size: 0.9em;
-            color: var(--accent-color);
-        }
-
-        .diagram {
-            display: flex;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            margin: 30px 0;
-            overflow: hidden;
-            font-size: 0.9rem;
-            text-align: center;
-        }
-
-        .screen-left {
-            flex: 1;
-            background-color: var(--code-bg);
-            padding: 20px;
-            border-right: 1px solid var(--border-color);
-        }
-
-        .screen-arrow {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0 10px;
-            background-color: var(--bg-color);
-            font-weight: bold;
-            color: var(--accent-color);
-        }
-
-        .screen-right {
-            flex: 1;
-            background-color: var(--code-bg);
-            padding: 20px;
-        }
-
-        footer {
-            margin-top: 60px;
-            padding-top: 20px;
-            border-top: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-between;
-            color: var(--muted-color);
-            font-size: 0.95rem;
-        }
-
-        footer a {
-            color: var(--text-color);
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        footer a:hover {
-            color: var(--accent-color);
-        }
-    </style>
+    
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body>
     <div class="container">
@@ -206,14 +27,14 @@
             <div class="diagram">
                 <div class="screen-left">
                     <strong>좌측 화면 (생산 기지)</strong><br>
-                    <span style="color: var(--muted-color); font-size: 0.85rem;">Google Chrome (워크스페이스 프로필)</span><br><br>
+                    <span>Google Chrome (워크스페이스 프로필)</span><br><br>
                     • GCP Cloud Run 엔드포인트<br>
                     • Firebase RTDB URL 및 비밀키
                 </div>
                 <div class="screen-arrow">➡️</div>
                 <div class="screen-right">
                     <strong>우측 화면 (수용 기지)</strong><br>
-                    <span style="color: var(--muted-color); font-size: 0.85rem;">Google Chrome (개인 프로필)</span><br><br>
+                    <span>Google Chrome (개인 프로필)</span><br><br>
                     • Cloudflare DNS 레코드 관리 창<br>
                     • SSL/TLS 암호화 모드 토글
                 </div>
@@ -242,11 +63,11 @@
                 <p><strong>와이드 모니터 분할은 단순한 UI 배치가 아닙니다.</strong> 데이터의 공급처(Source)와 수요처(Target)의 파이프라인을 물리적 공간에 그대로 일치시키는 직관적 아키텍처입니다. 양손과 시선이 규칙적으로 반응할 때 시스템 오작동률은 0%에 수렴합니다.</p>
             </div>
         </section>
+    <div id="common-footer"></div>
+</div>
 
-        <footer>
-            <a href="index.html">← 4장. 원클릭 배포의 함정</a>
-            <a href="index.html">6장. 보안 경고 학살 →</a>
-        </footer>
-    </div>
+<script src="./footer.js"></script>
 </body>
 </html>
+
+

@@ -4,124 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>4장. 원클릭 배포(Publisher)의 함정과 IAM 권한 파괴 규칙</title>
-    <style>
-        :root {
-            --bg-color: #0d1117;
-            --text-color: #c9d1d9;
-            --accent-color: #58a6ff;
-            --card-bg: #161b22;
-            --border-color: #30363d;
-            --green-color: #3fb950;
-            --warn-color: #f0883e;
-            --error-color: #f85149;
-        }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.7;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-        .nav-back {
-            margin-bottom: 20px;
-        }
-        .nav-back a {
-            color: var(--accent-color);
-            text-decoration: none;
-            font-size: 0.95rem;
-        }
-        header {
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 20px;
-            margin-bottom: 35px;
-        }
-        h1 {
-            font-size: 2rem;
-            color: #ffffff;
-            margin: 0 0 10px 0;
-            letter-spacing: -0.5px;
-        }
-        .chapter-number {
-            color: var(--accent-color);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            font-weight: 600;
-            display: block;
-            margin-bottom: 5px;
-        }
-        h2 {
-            font-size: 1.4rem;
-            color: #ffffff;
-            margin-top: 35px;
-            border-left: 4px solid var(--accent-color);
-            padding-left: 12px;
-        }
-        p {
-            color: #c9d1d9;
-        }
-        .vibe-check {
-            background-color: rgba(248, 81, 73, 0.1);
-            border: 1px solid rgba(248, 81, 73, 0.3);
-            border-radius: 6px;
-            padding: 15px 20px;
-            margin: 25px 0;
-        }
-        .vibe-check strong {
-            color: var(--error-color);
-            display: block;
-            margin-bottom: 5px;
-        }
-        .step-list {
-            padding-left: 20px;
-        }
-        .step-list li {
-            margin-bottom: 12px;
-        }
-        .step-list strong {
-            color: #ffffff;
-        }
-        .code-box {
-            background-color: #000000;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            padding: 15px;
-            font-family: "Courier New", Courier, monospace;
-            font-size: 0.9rem;
-            color: var(--error-color);
-            margin: 15px 0;
-            overflow-x: auto;
-        }
-        footer {
-            margin-top: 60px;
-            text-align: center;
-            font-size: 0.85rem;
-            color: #8b949e;
-            border-top: 1px solid var(--border-color);
-            padding-top: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        footer a { color: var(--accent-color); text-decoration: none; }
-        .edit-btn {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            padding: 6px 12px;
-            border-radius: 4px;
-            color: #c9d1d9 !important;
-            transition: all 0.2s;
-        }
-        .edit-btn:hover {
-            background-color: var(--border-color);
-            color: #ffffff !important;
-        }
-    </style>
+    
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body>
 
@@ -167,24 +51,23 @@
         <p>컴퓨터 내부의 꼬인 실타래를 내 손으로 직접 풀고 돌파하는 Vibe Control 프로토콜입니다.</p>
         
         <ol class="step-list">
-            <li><strong>구글 IAM 콘솔 진입:</strong> 격리된 Workspace 크롬 창을 열고 <a href="https://google.com" target="_blank" style="color:var(--accent-color);">[Google Cloud IAM 콘솔]</a>로 직접 진입합니다.</li>
+            <li><strong>구글 IAM 콘솔 진입:</strong> 격리된 Workspace 크롬 창을 열고 <a href="https://google.com" target="_blank">[Google Cloud IAM 콘솔]</a>로 직접 진입합니다.</li>
             <li><strong>최상위 프로젝트 전환:</strong> 최상위 프로젝트 선택창을 클릭하여, 배포용 프로젝트(<code>goguma-prod</code>)가 정확히 켜져 있는지 눈으로 확인합니다.</li>
             <li><strong>소유자 최고 권한 강제 주입:</strong> 상단의 <strong>[+ 액세스 권한 부여(GRANT ACCESS)]</strong>를 누릅니다.</li>
             <li><strong>내 진짜 계정 바인딩:</strong> 새 주체 입력란에 구글의 유령 시스템 번호 대신, 완벽히 살아있는 나의 최고 관리자 이메일(<code>admin@kwavemission.org</code>)을 집어넣습니다.</li>
             <li><strong>역할 파괴 규칙 적용:</strong> 역할 선택창에서 <strong>[Firebase Realtime Database 관리자 (Firebase Realtime Database Admin)]</strong> 역할을 직접 부여하고 저장합니다.</li>
         </ol>
 
-        <div class="vibe-check" style="background-color: rgba(63, 185, 80, 0.1); border-color: rgba(63, 185, 80, 0.3);">
-            <strong style="color: var(--green-color);">🎯 인프라 우회 성공</strong>
+        <div class="vibe-check">
+            <strong>🎯 인프라 우회 성공</strong>
             최고 관리자 계정에 DB 통제권을 직접 박아두었기 때문에, AI Studio로 돌아가 배포 버튼을 다시 누르면 시스템 충돌 버그를 완벽히 우회하며 0.1초 만에 서버리스 배포가 성공 완료됩니다.
         </div>
     </section>
-
-    <footer>
-        <span>Powered by <a href="https://goguma.app" target="_blank">goguma.app</a></span>
-        <a href="https://github.com" target="_blank" class="edit-btn">📝 GitHub에서 이 문서 수정하기</a>
-    </footer>
+    <div id="common-footer"></div>
 </div>
 
+<script src="./footer.js"></script>
 </body>
 </html>
+
+
